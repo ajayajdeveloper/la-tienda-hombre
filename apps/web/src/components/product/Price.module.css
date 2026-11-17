@@ -1,0 +1,43 @@
+.price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: var(--space-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.now {
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.mrp {
+  color: var(--color-ink-3);
+  text-decoration-thickness: 1px;
+}
+
+.off {
+  color: var(--color-sale);
+  font-weight: 600;
+}
+
+.sm {
+  font-size: var(--text-sm);
+}
+
+.md {
+  font-size: var(--text-sm);
+}
+
+.md .now {
+  font-size: var(--text-base);
+}
+
+.lg {
+  font-size: var(--text-base);
+}
+
+.lg .now {
+  font-size: var(--text-2xl);
+  font-family: var(--font-body);
+}

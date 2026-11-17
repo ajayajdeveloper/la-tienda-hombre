@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" role="img">
+<defs>
+<linearGradient id="gtrouserssolidfront" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#dac7a6"/><stop offset="1" stop-color="#beac8d"/>
+</linearGradient>
+<linearGradient id="strouserssolidfront" x1="0" y1="0" x2="1" y2="0">
+<stop offset="0" stop-color="#000" stop-opacity="0.10"/><stop offset="0.35" stop-color="#000" stop-opacity="0"/>
+<stop offset="0.7" stop-color="#fff" stop-opacity="0.06"/><stop offset="1" stop-color="#000" stop-opacity="0.12"/>
+</linearGradient>
+<radialGradient id="bgtrouserssolidfront" cx="0.5" cy="0.35" r="0.8">
+<stop offset="0" stop-color="#F3F0EA"/><stop offset="1" stop-color="#E3DDD2"/>
+</radialGradient>
+</defs>
+<rect width="400" height="500" fill="url(#bgtrouserssolidfront)"/>
+<ellipse cx="200" cy="468" rx="150" ry="14" fill="#000" opacity="0.07"/>
+<g transform="translate(20 22) scale(0.9)">
+<path d="M118 52 L282 52 L298 452 L220 452 L200 168 L180 452 L102 452 Z" fill="url(#gtrouserssolidfront)" stroke="#9c8c73" stroke-width="2" stroke-linejoin="round"/>
+<path d="M118 52 L282 52 L298 452 L220 452 L200 168 L180 452 L102 452 Z" fill="url(#strouserssolidfront)"/>
+<path d="M118 76 L282 76 M200 76 L200 168 M200 100 Q186 140 192 160 M126 82 Q150 110 164 82 M274 82 Q250 110 236 82 M146 52 v24 M200 52 v24 M254 52 v24 M150 180 L140 448 M250 180 L260 448" fill="none" stroke="#978970" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/>
+</g>
+</svg>

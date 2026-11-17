@@ -1,0 +1,60 @@
+# The whole production stack on one machine:
+#
+#   npm run prod:up                     # build + start: http://localhost:8080
+#   docker compose -f docker-compose.prod.yml run --rm api node src/db/seed.js   # first time only
+#   npm run prod:down
+#
+# Same images you'd run on a VPS. Only `web` is published to the host; the
+# API and database are reachable only inside the compose network.
+name: la-tienda-hombre-prod
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: hombre
+      POSTGRES_DB: hombre
+      # Set a real secret in a .env file next to this compose file on a server.
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-local-prod-password}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U hombre']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      DATABASE_URL: postgres://hombre:${POSTGRES_PASSWORD:-local-prod-password}@postgres:5432/hombre
+      DB_POOL_MAX: 10
+      TRUST_PROXY: 1 # one proxy (nginx) in front
+      WEB_ORIGIN: '' # same-origin only
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    # Give in-flight requests time to finish on `docker compose down` / redeploy.
+    stop_grace_period: 15s
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    environment:
+      API_HOST: api:4000
+    ports:
+      - '8080:8080'
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  pgdata:

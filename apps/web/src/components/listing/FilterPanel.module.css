@@ -1,0 +1,149 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.group {
+  border-bottom: 1px solid var(--color-line);
+}
+
+.groupTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) 0;
+  font-weight: 600;
+  font-size: var(--text-sm);
+  cursor: pointer;
+  list-style: none;
+}
+
+.groupTitle::-webkit-details-marker {
+  display: none;
+}
+
+.groupCount {
+  display: inline-grid;
+  place-items: center;
+  min-width: 20px;
+  height: 20px;
+  margin-left: var(--space-2);
+  padding: 0 6px;
+  border-radius: var(--radius-pill);
+  background: var(--color-ink);
+  color: var(--color-bg);
+  font-size: 0.6875rem;
+}
+
+.chevron {
+  transition: transform var(--dur) var(--ease);
+}
+
+.group[open] .chevron {
+  transform: rotate(180deg);
+}
+
+.groupBody {
+  padding-bottom: var(--space-5);
+}
+
+.facetCount {
+  color: var(--color-ink-3);
+  font-size: var(--text-xs);
+  font-weight: 400;
+}
+
+/* sizes */
+.sizes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+  gap: var(--space-2);
+}
+
+.size {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-2) var(--space-1);
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  line-height: 1.2;
+}
+
+.size:hover {
+  border-color: var(--color-ink);
+}
+
+.size[aria-pressed='true'] {
+  border-color: var(--color-ink);
+  background: var(--color-ink);
+  color: var(--color-bg);
+}
+
+.size[aria-pressed='true'] .facetCount {
+  color: rgb(250 248 244 / 0.7);
+}
+
+/* colours */
+.colors,
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.colorRow,
+.option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-1) 0;
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.colorRow input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.swatch {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.15);
+  color: transparent;
+}
+
+.colorRow input:checked + .swatch {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
+  color: #fff;
+  mix-blend-mode: normal;
+}
+
+.colorRow input:focus-visible + .swatch {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.colorName {
+  flex: 1;
+}
+
+.option input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--color-ink);
+}

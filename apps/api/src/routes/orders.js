@@ -1,90 +1,69 @@
 import { Router } from 'express'
 import { z } from 'zod'
-import { pool } from '../db/pool.js'
+import { validate } from '../lib/validate.js'
+import { badRequest } from '../lib/httpError.js'
+import { MAX_QUANTITY_PER_LINE } from '../lib/pricing.js'
+import { orderLimiter } from '../middleware/rateLimits.js'
+import { getOrder, placeOrder, quoteOrder } from '../services/orders.js'
 
 export const ordersRouter = Router()
 
-const orderSchema = z.object({
-  customerName: z.string().min(1),
-  customerEmail: z.string().email(),
-  shippingAddress: z.string().min(1),
-  items: z
-    .array(
-      z.object({
-        variantId: z.number().int().positive(),
-        quantity: z.number().int().positive(),
-      })
-    )
-    .min(1),
+const itemsSchema = z
+  .array(
+    z.object({
+      variantId: z.number().int().positive(),
+      quantity: z.number().int().positive().max(MAX_QUANTITY_PER_LINE),
+    })
+  )
+  .min(1)
+  .max(20)
+
+const quoteSchema = z.object({
+  items: itemsSchema,
+  couponCode: z.string().trim().max(30).optional(),
 })
 
-ordersRouter.post('/', async (req, res) => {
-  const parsed = orderSchema.safeParse(req.body)
-  if (!parsed.success) {
-    return res.status(400).json({ error: 'invalid order payload' })
-  }
+// Read-only pricing for the cart/checkout pages. POST because the input is a
+// structured list, but it writes nothing and is safe to call repeatedly.
+ordersRouter.post('/quote', async (req, res) => {
+  res.json(await quoteOrder(validate(quoteSchema, req.body)))
+})
 
-  const { customerName, customerEmail, shippingAddress, items } = parsed.data
-  const client = await pool.connect()
+const orderSchema = z.object({
+  customer: z.object({
+    name: z.string().trim().min(2).max(80),
+    email: z.string().trim().email().max(120),
+    // Indian mobile numbers: 10 digits starting 6-9.
+    phone: z.string().trim().regex(/^[6-9][0-9]{9}$/, 'Enter a 10-digit mobile number'),
+    address: z.string().trim().min(5).max(200),
+    city: z.string().trim().min(2).max(60),
+    state: z.string().trim().min(2).max(60),
+    pincode: z.string().trim().regex(/^[1-9][0-9]{5}$/, 'Enter a valid 6-digit pincode'),
+  }),
+  items: itemsSchema,
+  couponCode: z.string().trim().max(30).optional(),
+  paymentMethod: z.literal('cod').default('cod'),
+  // The total the shopper was shown (from /quote). Optional so API clients
+  // without a quote still work; the web app always sends it.
+  expectedTotalCents: z.number().int().nonnegative().optional(),
+})
 
-  try {
-    await client.query('BEGIN')
+const idempotencyKey = z.string().regex(/^[A-Za-z0-9_-]{8,64}$/).optional()
 
-    let totalCents = 0
-    const lineItems = []
+ordersRouter.post('/', orderLimiter, async (req, res) => {
+  const input = validate(orderSchema, req.body)
+  const keyCheck = idempotencyKey.safeParse(req.get('Idempotency-Key') ?? undefined)
+  if (!keyCheck.success) throw badRequest('invalid Idempotency-Key header')
 
-    for (const item of items) {
-      const { rows } = await client.query(
-        `SELECT pv.id, pv.stock_quantity, p.base_price_cents
-         FROM product_variants pv
-         JOIN products p ON p.id = pv.product_id
-         WHERE pv.id = $1
-         FOR UPDATE`,
-        [item.variantId]
-      )
-      const variant = rows[0]
+  const { order, replayed } = await placeOrder(input, { idempotencyKey: keyCheck.data })
+  // 201 for a new order; 200 when the same key was retried and we returned the original.
+  res.status(replayed ? 200 : 201).json(order)
+})
 
-      if (!variant) {
-        throw new Error(`variant ${item.variantId} not found`)
-      }
-      if (variant.stock_quantity < item.quantity) {
-        throw new Error(`insufficient stock for variant ${item.variantId}`)
-      }
+const uuid = z.string().uuid()
 
-      totalCents += variant.base_price_cents * item.quantity
-      lineItems.push({
-        variantId: variant.id,
-        quantity: item.quantity,
-        unitPriceCents: variant.base_price_cents,
-      })
-    }
-
-    const { rows: orderRows } = await client.query(
-      `INSERT INTO orders (customer_name, customer_email, shipping_address, total_cents)
-       VALUES ($1, $2, $3, $4) RETURNING id`,
-      [customerName, customerEmail, shippingAddress, totalCents]
-    )
-    const orderId = orderRows[0].id
-
-    for (const line of lineItems) {
-      await client.query(
-        `INSERT INTO order_items (order_id, product_variant_id, quantity, unit_price_cents)
-         VALUES ($1, $2, $3, $4)`,
-        [orderId, line.variantId, line.quantity, line.unitPriceCents]
-      )
-
-      await client.query(
-        `UPDATE product_variants SET stock_quantity = stock_quantity - $1 WHERE id = $2`,
-        [line.quantity, line.variantId]
-      )
-    }
-
-    await client.query('COMMIT')
-    res.status(201).json({ orderId, totalCents })
-  } catch (err) {
-    await client.query('ROLLBACK')
-    res.status(409).json({ error: err.message })
-  } finally {
-    client.release()
-  }
+ordersRouter.get('/:publicId', async (req, res) => {
+  const publicId = validate(uuid, req.params.publicId)
+  res.set('Cache-Control', 'private, no-store') // personal data: never cache in shared caches
+  res.json(await getOrder(publicId))
 })

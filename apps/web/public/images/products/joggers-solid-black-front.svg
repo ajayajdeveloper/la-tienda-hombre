@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" role="img">
+<defs>
+<linearGradient id="gjoggerssolidfront" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#2c2c2c"/><stop offset="1" stop-color="#1b1b1b"/>
+</linearGradient>
+<linearGradient id="sjoggerssolidfront" x1="0" y1="0" x2="1" y2="0">
+<stop offset="0" stop-color="#000" stop-opacity="0.10"/><stop offset="0.35" stop-color="#000" stop-opacity="0"/>
+<stop offset="0.7" stop-color="#fff" stop-opacity="0.06"/><stop offset="1" stop-color="#000" stop-opacity="0.12"/>
+</linearGradient>
+<radialGradient id="bgjoggerssolidfront" cx="0.5" cy="0.35" r="0.8">
+<stop offset="0" stop-color="#F3F0EA"/><stop offset="1" stop-color="#E3DDD2"/>
+</radialGradient>
+</defs>
+<rect width="400" height="500" fill="url(#bgjoggerssolidfront)"/>
+<ellipse cx="200" cy="468" rx="150" ry="14" fill="#000" opacity="0.07"/>
+<g transform="translate(20 22) scale(0.9)">
+<path d="M116 52 L284 52 L288 410 L272 452 L218 452 L212 410 L200 168 L188 410 L182 452 L128 452 L112 410 Z" fill="url(#gjoggerssolidfront)" stroke="#161616" stroke-width="2" stroke-linejoin="round"/>
+<path d="M116 52 L284 52 L288 410 L272 452 L218 452 L212 410 L200 168 L188 410 L182 452 L128 452 L112 410 Z" fill="url(#sjoggerssolidfront)"/>
+<path d="M116 84 L284 84 M192 84 Q186 108 178 118 M208 84 Q214 108 222 118 M126 92 Q146 120 160 92 M274 92 Q254 120 240 92 M114 410 L188 410 M212 410 L286 410" fill="none" stroke="#505050" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/>
+</g>
+</svg>

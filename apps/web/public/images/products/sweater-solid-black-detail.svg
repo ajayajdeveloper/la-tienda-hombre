@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" role="img">
+<defs>
+<linearGradient id="gsweatersoliddetail" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#2c2c2c"/><stop offset="1" stop-color="#1b1b1b"/>
+</linearGradient>
+<linearGradient id="ssweatersoliddetail" x1="0" y1="0" x2="1" y2="0">
+<stop offset="0" stop-color="#000" stop-opacity="0.10"/><stop offset="0.35" stop-color="#000" stop-opacity="0"/>
+<stop offset="0.7" stop-color="#fff" stop-opacity="0.06"/><stop offset="1" stop-color="#000" stop-opacity="0.12"/>
+</linearGradient>
+</defs>
+<rect width="400" height="500" fill="#cecece"/>
+<circle cx="330" cy="80" r="120" fill="#fff" opacity="0.18"/>
+<g transform="translate(-170 -40) scale(1.85)">
+<path d="M156 64 L244 64 L246 92 L330 112 Q348 120 352 142 L376 338 L334 348 L304 190 L306 420 L300 448 Q200 456 100 448 L94 420 L96 190 L66 348 L24 338 L48 142 Q52 120 70 112 L154 92 Z" fill="url(#gsweatersoliddetail)" stroke="#161616" stroke-width="2" stroke-linejoin="round"/>
+<path d="M156 64 L244 64 L246 92 L330 112 Q348 120 352 142 L376 338 L334 348 L304 190 L306 420 L300 448 Q200 456 100 448 L94 420 L96 190 L66 348 L24 338 L48 142 Q52 120 70 112 L154 92 Z" fill="url(#ssweatersoliddetail)"/>
+<path d="M156 78 L244 78 M154 92 L246 92 M96 420 L306 420 M30 318 L70 328 M370 318 L330 328 M160 120 Q172 160 160 200 Q148 240 160 280 Q172 320 160 360 Q148 400 160 418 M240 120 Q228 160 240 200 Q252 240 240 280 Q228 320 240 360 Q252 400 240 418 M200 120 Q212 160 200 200 Q188 240 200 280 Q212 320 200 360 Q188 400 200 418" fill="none" stroke="#505050" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/>
+</g>
+</svg>

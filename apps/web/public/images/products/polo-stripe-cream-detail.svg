@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" role="img">
+<defs>
+<linearGradient id="gpolostripedetail" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#eee5cf"/><stop offset="1" stop-color="#d1c8b4"/>
+</linearGradient>
+<linearGradient id="spolostripedetail" x1="0" y1="0" x2="1" y2="0">
+<stop offset="0" stop-color="#000" stop-opacity="0.10"/><stop offset="0.35" stop-color="#000" stop-opacity="0"/>
+<stop offset="0.7" stop-color="#fff" stop-opacity="0.06"/><stop offset="1" stop-color="#000" stop-opacity="0.12"/>
+</linearGradient>
+<pattern id="ppolostripedetail" width="16" height="16" patternUnits="userSpaceOnUse">
+<rect width="16" height="16" fill="#EDE3CC"/>
+<rect width="16" height="5" fill="#9a9485" opacity="0.75"/></pattern></defs>
+<rect width="400" height="500" fill="#D9D4CA"/>
+<circle cx="330" cy="80" r="120" fill="#fff" opacity="0.18"/>
+<g transform="translate(-170 -40) scale(1.85)">
+<path d="M150 80 L176 70 Q200 84 224 70 L250 80 L320 104 L358 190 L310 208 L294 172 L296 444 Q200 452 104 444 L106 172 L90 208 L42 190 L80 104 Z" fill="url(#ppolostripedetail)" stroke="#aba393" stroke-width="2" stroke-linejoin="round"/>
+<path d="M150 80 L176 70 Q200 84 224 70 L250 80 L320 104 L358 190 L310 208 L294 172 L296 444 Q200 452 104 444 L106 172 L90 208 L42 190 L80 104 Z" fill="url(#spolostripedetail)"/>
+<path d="M176 70 L190 112 L160 110 L154 84 M224 70 L210 112 L240 110 L246 84 M190 92 L190 166 L210 166 L210 92 M48 176 L96 196 M352 176 L304 196" fill="none" stroke="#a69f8f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/>
+<circle cx="200" cy="120" r="4.2" fill="#f7f2e8" stroke="#aba393" stroke-width="1"/><circle cx="200" cy="148" r="4.2" fill="#f7f2e8" stroke="#aba393" stroke-width="1"/></g>
+</svg>

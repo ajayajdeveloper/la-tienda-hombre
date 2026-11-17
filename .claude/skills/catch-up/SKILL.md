@@ -28,7 +28,8 @@ anything until this is done.
 - Environment (report what you find, don't fix it on your own):
   - `docker compose ps -a`. Postgres stops between sessions. If it's down, say
     `npm run db:up` will bring it back (the data is kept).
-  - `lsof -i :4000 -i :5174 -i :5433`. Look for leftover dev servers from earlier.
+  - `lsof -i :4000 -i :5174 -i :5433 -i :8080`. Look for leftover dev servers or a
+    running production stack (`docker compose -f docker-compose.prod.yml ps`).
 
 ## 3. Give the user a short briefing
 
@@ -46,8 +47,9 @@ Keep it short and easy to scan:
 
 ## 4. Re-confirm the working mode
 
-End the briefing by restating the rule in one line: *"Same mode as before: I explain
-line by line, you type it, I review. I won't write anything under `apps/*/src/`."*
-Then follow it for the whole session.
+End the briefing by restating the current rule from JOURNAL.md's **Ground rules** in
+one line. Since 2026-11-17 it is: *"I build (app code included) and record every decision
+in docs/DECISIONS.md; you review."* If the journal says the mode changed again, use
+what it says. Then follow it for the whole session.
 
 When the session wraps up, suggest running `/checkpoint` so the journal stays current.

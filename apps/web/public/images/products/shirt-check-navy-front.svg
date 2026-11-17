@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" role="img">
+<defs>
+<linearGradient id="gshirtcheckfront" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#2c3a55"/><stop offset="1" stop-color="#1b2841"/>
+</linearGradient>
+<linearGradient id="sshirtcheckfront" x1="0" y1="0" x2="1" y2="0">
+<stop offset="0" stop-color="#000" stop-opacity="0.10"/><stop offset="0.35" stop-color="#000" stop-opacity="0"/>
+<stop offset="0.7" stop-color="#fff" stop-opacity="0.06"/><stop offset="1" stop-color="#000" stop-opacity="0.12"/>
+</linearGradient>
+<pattern id="pshirtcheckfront" width="36" height="36" patternUnits="userSpaceOnUse">
+<rect width="36" height="36" fill="#1F2D4A"/>
+<rect width="18" height="36" fill="#848c9b" opacity="0.28"/>
+<rect width="36" height="18" fill="#848c9b" opacity="0.28"/>
+<path d="M0 0 H36 M0 0 V36" stroke="#848c9b" stroke-width="1.4" opacity="0.6"/></pattern>
+<radialGradient id="bgshirtcheckfront" cx="0.5" cy="0.35" r="0.8">
+<stop offset="0" stop-color="#F3F0EA"/><stop offset="1" stop-color="#E3DDD2"/>
+</radialGradient>
+</defs>
+<rect width="400" height="500" fill="url(#bgshirtcheckfront)"/>
+<ellipse cx="200" cy="468" rx="150" ry="14" fill="#000" opacity="0.07"/>
+<g transform="translate(20 22) scale(0.9)">
+<path d="M150 82 L178 70 Q200 86 222 70 L250 82 L322 112 Q340 120 344 140 L372 318 L332 328 L300 180 L302 444 Q200 452 98 444 L100 180 L68 328 L28 318 L56 140 Q60 120 78 112 Z" fill="url(#pshirtcheckfront)" stroke="#162035" stroke-width="2" stroke-linejoin="round"/>
+<path d="M150 82 L178 70 Q200 86 222 70 L250 82 L322 112 Q340 120 344 140 L372 318 L332 328 L300 180 L302 444 Q200 452 98 444 L100 180 L68 328 L28 318 L56 140 Q60 120 78 112 Z" fill="url(#sshirtcheckfront)"/>
+<path d="M178 70 L200 112 L170 128 L160 86 M222 70 L200 112 L230 128 L240 86 M200 112 L200 444 M120 170 h40 v44 h-40 z M36 300 L72 310 M364 300 L328 310" fill="none" stroke="#505b72" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/>
+<circle cx="200" cy="150" r="4.2" fill="#9aa1ae" stroke="#162035" stroke-width="1"/><circle cx="200" cy="200" r="4.2" fill="#9aa1ae" stroke="#162035" stroke-width="1"/><circle cx="200" cy="250" r="4.2" fill="#9aa1ae" stroke="#162035" stroke-width="1"/><circle cx="200" cy="300" r="4.2" fill="#9aa1ae" stroke="#162035" stroke-width="1"/><circle cx="200" cy="350" r="4.2" fill="#9aa1ae" stroke="#162035" stroke-width="1"/><circle cx="200" cy="400" r="4.2" fill="#9aa1ae" stroke="#162035" stroke-width="1"/></g>
+</svg>

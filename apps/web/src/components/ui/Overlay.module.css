@@ -1,0 +1,124 @@
+.root {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-drawer);
+  pointer-events: none;
+}
+
+.root[data-open='true'] {
+  pointer-events: auto;
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  background: var(--color-overlay);
+  opacity: 0;
+  transition: opacity var(--dur) var(--ease);
+}
+
+.root[data-open='true'] .backdrop {
+  opacity: 1;
+}
+
+/* ------------------------------------------------------------------ drawer */
+.drawer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: min(var(--drawer-w), 100vw);
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+  box-shadow: var(--shadow-lg);
+  transition: transform var(--dur-slow) var(--ease);
+  outline: none;
+}
+
+.right {
+  right: 0;
+  transform: translateX(100%);
+}
+
+.left {
+  left: 0;
+  transform: translateX(-100%);
+}
+
+.root[data-open='true'] .drawer {
+  transform: none;
+}
+
+.drawerHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.drawerTitle {
+  font-size: var(--text-lg);
+}
+
+.close {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  margin-right: calc(var(--space-2) * -1);
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-ink);
+}
+
+.close:hover {
+  background: var(--color-surface-2);
+}
+
+.drawerBody {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.drawerFooter {
+  padding: var(--space-4) var(--space-5) calc(var(--space-4) + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--color-line);
+  background: var(--color-surface);
+}
+
+/* ------------------------------------------------------------------- modal */
+.modal {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  width: min(560px, calc(100vw - 2 * var(--gutter)));
+  max-height: calc(100dvh - 4rem);
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  outline: none;
+  animation: pop var(--dur) var(--ease);
+}
+
+.modalWide {
+  width: min(960px, calc(100vw - 2 * var(--gutter)));
+}
+
+.modalBody {
+  overflow-y: auto;
+  padding: var(--space-5);
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    scale: 0.97;
+  }
+}

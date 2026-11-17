@@ -1,0 +1,72 @@
+# Reuse TCP connections to the API instead of opening one per request.
+# Without this, every proxied request leaves a socket in TIME_WAIT; under load
+# nginx runs out of local ports and answers 502 ("Address not available").
+# The load test hit exactly that at ~2,600 req/s before this block existed.
+upstream api_backend {
+  server ${API_HOST};
+  keepalive 64;
+  keepalive_timeout 30s;
+}
+
+# One origin for everything: nginx serves the built React app and forwards
+# /api to the Express container. The browser never makes a cross-origin
+# request, so there is no CORS to configure in production.
+server {
+  listen 8080;
+  server_name _;
+  root /usr/share/nginx/html;
+
+  # Compress text responses (JS, CSS, JSON, SVG): typically 70-80% smaller.
+  gzip on;
+  gzip_comp_level 6;
+  gzip_min_length 1024;
+  gzip_types text/css application/javascript application/json image/svg+xml;
+
+  # Security headers for the HTML/JS (the API sets its own via helmet).
+  add_header X-Content-Type-Options "nosniff" always;
+  add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+  add_header X-Frame-Options "DENY" always;
+
+  location /api/ {
+    proxy_pass http://api_backend;
+    # Keep-alive to the upstream needs HTTP/1.1 and an empty Connection header.
+    proxy_http_version 1.1;
+    proxy_set_header Connection "";
+    proxy_set_header Host $host;
+    # The API reads these (with TRUST_PROXY=1) to see the real client IP for rate limiting.
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_read_timeout 30s;
+  }
+
+  location = /healthz {
+    proxy_pass http://api_backend;
+    proxy_http_version 1.1;
+    proxy_set_header Connection "";
+  }
+
+  # Vite puts a content hash in every asset filename (index-BVs--nFx.js), so a
+  # changed file always gets a new name. That makes it safe to cache forever.
+  location /assets/ {
+    add_header Cache-Control "public, max-age=31536000, immutable";
+    add_header X-Content-Type-Options "nosniff" always;
+    try_files $uri =404;
+  }
+
+  location /images/ {
+    add_header Cache-Control "public, max-age=86400";
+    add_header X-Content-Type-Options "nosniff" always;
+    try_files $uri =404;
+  }
+
+  # Client-side routing: /products/pure-linen-shirt isn't a file on disk, so
+  # serve index.html and let React Router render the page. index.html itself is
+  # never cached, so a new deploy is picked up on the next page load.
+  location / {
+    add_header Cache-Control "no-cache";
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    add_header X-Frame-Options "DENY" always;
+    try_files $uri $uri/ /index.html;
+  }
+}

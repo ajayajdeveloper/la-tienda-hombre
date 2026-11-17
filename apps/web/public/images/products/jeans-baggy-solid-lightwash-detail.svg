@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" role="img">
+<defs>
+<linearGradient id="gjeansbaggysoliddetail" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#99b2cc"/><stop offset="1" stop-color="#8198b1"/>
+</linearGradient>
+<linearGradient id="sjeansbaggysoliddetail" x1="0" y1="0" x2="1" y2="0">
+<stop offset="0" stop-color="#000" stop-opacity="0.10"/><stop offset="0.35" stop-color="#000" stop-opacity="0"/>
+<stop offset="0.7" stop-color="#fff" stop-opacity="0.06"/><stop offset="1" stop-color="#000" stop-opacity="0.12"/>
+</linearGradient>
+</defs>
+<rect width="400" height="500" fill="#e7edf3"/>
+<circle cx="330" cy="80" r="120" fill="#fff" opacity="0.18"/>
+<g transform="translate(-170 -40) scale(1.85)">
+<path d="M112 52 L288 52 L318 452 L218 452 L200 172 L182 452 L82 452 Z" fill="url(#gjeansbaggysoliddetail)" stroke="#6a7d91" stroke-width="2" stroke-linejoin="round"/>
+<path d="M112 52 L288 52 L318 452 L218 452 L200 172 L182 452 L82 452 Z" fill="url(#sjeansbaggysoliddetail)"/>
+<path d="M112 76 L288 76 M200 76 L200 172 M200 100 Q186 140 192 162 M120 80 Q146 114 168 80 M280 80 Q254 114 232 80 M238 86 h22 v18 h-22 z M140 52 v24 M200 52 v24 M260 52 v24 M90 420 Q150 430 196 420 M204 420 Q250 430 310 420" fill="none" stroke="#67798d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/>
+<path d="M112 76 L288 76 M200 76 L200 172 M200 100 Q186 140 192 162 M120 80 Q146 114 168 80 M280 80 Q254 114 232 80 M238 86 h22 v18 h-22 z M140 52 v24 M200 52 v24 M260 52 v24 M90 420 Q150 430 196 420 M204 420 Q250 430 310 420" fill="none" stroke="#D9A24A" stroke-width="1.6" stroke-dasharray="4 3" opacity="0.9"/></g>
+</svg>

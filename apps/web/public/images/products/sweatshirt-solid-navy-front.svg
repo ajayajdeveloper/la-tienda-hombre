@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" role="img">
+<defs>
+<linearGradient id="gsweatshirtsolidfront" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#2c3a55"/><stop offset="1" stop-color="#1b2841"/>
+</linearGradient>
+<linearGradient id="ssweatshirtsolidfront" x1="0" y1="0" x2="1" y2="0">
+<stop offset="0" stop-color="#000" stop-opacity="0.10"/><stop offset="0.35" stop-color="#000" stop-opacity="0"/>
+<stop offset="0.7" stop-color="#fff" stop-opacity="0.06"/><stop offset="1" stop-color="#000" stop-opacity="0.12"/>
+</linearGradient>
+<radialGradient id="bgsweatshirtsolidfront" cx="0.5" cy="0.35" r="0.8">
+<stop offset="0" stop-color="#F3F0EA"/><stop offset="1" stop-color="#E3DDD2"/>
+</radialGradient>
+</defs>
+<rect width="400" height="500" fill="url(#bgsweatshirtsolidfront)"/>
+<ellipse cx="200" cy="468" rx="150" ry="14" fill="#000" opacity="0.07"/>
+<g transform="translate(20 22) scale(0.9)">
+<path d="M150 80 Q200 104 250 80 L330 112 Q348 120 352 142 L376 338 L334 348 L304 190 L306 420 L300 448 Q200 456 100 448 L94 420 L96 190 L66 348 L24 338 L48 142 Q52 120 70 112 Z" fill="url(#gsweatshirtsolidfront)" stroke="#162035" stroke-width="2" stroke-linejoin="round"/>
+<path d="M150 80 Q200 104 250 80 L330 112 Q348 120 352 142 L376 338 L334 348 L304 190 L306 420 L300 448 Q200 456 100 448 L94 420 L96 190 L66 348 L24 338 L48 142 Q52 120 70 112 Z" fill="url(#ssweatshirtsolidfront)"/>
+<path d="M150 80 Q200 120 250 80 M146 74 Q200 98 254 74 M96 420 L306 420 M30 318 L70 328 M370 318 L330 328" fill="none" stroke="#505b72" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/>
+</g>
+</svg>
