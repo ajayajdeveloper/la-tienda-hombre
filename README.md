@@ -8,6 +8,9 @@ ship, no payments are taken.
 - **v2** (branch `v2`): subcategories, faceted filters, search, reviews, coupons, delivery checks, wishlist,
   a redesigned UI, tests, a load test, and a production Docker setup.
 
+**Live demo:** https://la-tienda-hombre-pi1g.vercel.app (Vercel Hobby + Neon, free tier; the API is
+https://la-tienda-hombre.vercel.app)
+
 ## Quick start (development)
 
 Requires Node 20+ and Docker.

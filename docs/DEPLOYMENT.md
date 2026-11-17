@@ -114,7 +114,7 @@ on a scratch database. A backup you've never restored is a hope, not a backup.
 non-commercial use only**; a store that really sells needs Vercel Pro.
 
 ```
-Browser ──► la-tienda-hombre-shop.vercel.app (Vite build on Vercel's CDN)
+Browser ──► la-tienda-hombre-pi1g.vercel.app (Vite build on Vercel's CDN)
               └─ /api/*  rewrite (server-side proxy, still one origin) ──►
                  la-tienda-hombre.vercel.app (Express as one Vercel Function, region sin1)
                     └─ pg Pool + attachDatabasePool ──► Neon (ap-southeast-1, pooled URL)
@@ -138,10 +138,10 @@ detection), `apps/api/vercel.json` pins the function to `sin1`, `db/pool.js` cal
 5. Check `https://la-tienda-hombre.vercel.app/healthz` → `{"status":"ok","db":"ok"}`.
 
 ### Web project
-1. Import the same repo again. **Project name:** `la-tienda-hombre-shop` · **Root Directory:** `apps/web` ·
+1. Import the same repo again. **Project name:** `la-tienda-hombre` (Vercel added the `-pi1g` suffix because the name was taken by the API project) · **Root Directory:** `apps/web` ·
    Framework: Vite (auto). No environment variables needed (the rewrite makes `/api` same-origin).
 3. The rewrite destination in `apps/web/vercel.json` must be the API project's domain.
-4. `BASE=https://la-tienda-hombre-shop.vercel.app npm run smoke` (places 2 test orders; reseed Neon after with
+4. `BASE=https://la-tienda-hombre-pi1g.vercel.app npm run smoke` (places 2 test orders; reseed Neon after with
    `DATABASE_URL=<direct url> node apps/api/src/db/seed.js --force`).
 
 ## 4. Option B: other managed platforms (not tested in this build)

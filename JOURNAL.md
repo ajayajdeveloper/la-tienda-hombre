@@ -166,10 +166,20 @@ Newest entry at the bottom. `/catch-up` reads this file to rebuild context;
   Verified by running the default export with `VERCEL=1` against Neon; not yet deployed (needs the
   user's Vercel account). Steps: `docs/DEPLOYMENT.md` section 3.
 
+## 2026-11-17 (later) — Live on Vercel
+
+- Merged v2 into `main` (PR #1, merge commit keeps the 6 phase commits). v1 is commit `cade696` (no tag yet).
+- Live: shop https://la-tienda-hombre-pi1g.vercel.app · API https://la-tienda-hombre.vercel.app
+  (function region sin1, Neon Singapore). Smoke test passes against production; Neon reseeded after.
+- First API deploy failed with FUNCTION_INVOCATION_FAILED on every route: DATABASE_URL wasn't set, and
+  config.js exits on purpose when it's missing. Env vars only apply to NEW deployments → redeploy.
+- The API project took the `la-tienda-hombre` name; web rewrite points there. Vercel auto-deploys both
+  projects on every push to `main`.
+
 ## Open threads / possible next steps
 
-- Deploy on Vercel: the user creates the two projects (DEPLOYMENT.md section 3); then run the smoke
-  test against the live URL and reseed Neon.
+- Optional: tag `cade696` as `v1`; remove the Claude co-author from the old Initial commit (needs a
+  history rewrite + force push, only if the user asks).
 - Review v2 using the reading order in `docs/AI-WORKFLOW.md` section 8, then do its exercises.
 - `STUDY.md` still covers only v1 topics; v2 reasoning is in `docs/DECISIONS.md`.
 - v3 ideas: auth (unlocks order history and a synced wishlist), online payments, an admin
