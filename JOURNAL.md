@@ -155,11 +155,21 @@ Newest entry at the bottom. `/catch-up` reads this file to rebuild context;
 - Gotcha hit: killing only the API process left the old `node --watch` parent alive; a file edit
   restarted it on the local DB and it grabbed port 4000. Kill the whole `npm run dev` tree.
 
+## 2026-11-17 (later) — Committed v2; prepared Vercel deploy
+
+- v2 committed in 5 phase commits (author ajayajdeveloper, no co-author) and pushed: `origin/v2`.
+  `main` is still v1 on purpose (hand-typed reference).
+- Chose Vercel (Hobby, non-commercial) over Render: Fluid compute avoids the 1-minute cold start, one
+  platform for web + API, single region allowed on Hobby → `sin1` next to Neon.
+- Code for Vercel: default-exported app in `src/app.js`, `attachDatabasePool` when `VERCEL` is set,
+  `apps/api/vercel.json` (sin1), `apps/web/vercel.json` (proxy `/api/*` to the API project + SPA fallback).
+  Verified by running the default export with `VERCEL=1` against Neon; not yet deployed (needs the
+  user's Vercel account). Steps: `docs/DEPLOYMENT.md` section 3.
+
 ## Open threads / possible next steps
 
-- Commit v2 (uncommitted on branch `v2`), ideally in phase-sized commits; the user is the only author.
-- Deploy for free: API on Render (Singapore, Docker, env vars from `.env.neon` POOLED URL,
-  `WEB_ORIGIN`, `TRUST_PROXY=1`), web on Cloudflare Pages (`VITE_API_URL`), uptime pinger on `/livez`.
+- Deploy on Vercel: the user creates the two projects (DEPLOYMENT.md section 3); then run the smoke
+  test against the live URL and reseed Neon.
 - Review v2 using the reading order in `docs/AI-WORKFLOW.md` section 8, then do its exercises.
 - `STUDY.md` still covers only v1 topics; v2 reasoning is in `docs/DECISIONS.md`.
 - v3 ideas: auth (unlocks order history and a synced wishlist), online payments, an admin

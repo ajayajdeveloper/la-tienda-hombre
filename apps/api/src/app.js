@@ -83,3 +83,8 @@ export function createApp() {
 
   return app
 }
+
+// Vercel's zero-config Express support looks for a default-exported app in
+// src/app.js. Locally, server.js uses this same instance and calls listen().
+const app = createApp()
+export default app

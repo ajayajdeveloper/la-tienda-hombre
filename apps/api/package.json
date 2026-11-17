@@ -11,6 +11,7 @@
     "test": "NODE_ENV=test node --test --test-concurrency=1 --test-reporter=spec 'test/**/*.test.js'"
   },
   "dependencies": {
+    "@vercel/functions": "^3.11.3",
     "compression": "^1.8.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",

@@ -108,7 +108,46 @@ on a scratch database. A backup you've never restored is a hope, not a backup.
 - Point an uptime checker (UptimeRobot or Better Stack, both free) at `https://shop.example.com/healthz`.
   It returns 503 if the database is down, not just when the process is dead.
 
-## 3. Option B: managed platforms (not tested in this build)
+## 3. Option C: free — Vercel (web + API) + Neon (Postgres)
+
+₹0/month, no cold starts (Vercel Fluid compute), everything in Singapore. Hobby plan = **personal,
+non-commercial use only**; a store that really sells needs Vercel Pro.
+
+```
+Browser ──► la-tienda-hombre.vercel.app (Vite build on Vercel's CDN)
+              └─ /api/*  rewrite (server-side proxy, still one origin) ──►
+                 la-tienda-hombre-api.vercel.app (Express as one Vercel Function, region sin1)
+                    └─ pg Pool + attachDatabasePool ──► Neon (ap-southeast-1, pooled URL)
+```
+
+What the code does for this: `apps/api/src/app.js` default-exports the app (Vercel's zero-config Express
+detection), `apps/api/vercel.json` pins the function to `sin1`, `db/pool.js` calls `attachDatabasePool` when
+`VERCEL` is set, and `apps/web/vercel.json` proxies `/api/*` to the API project and falls back to
+`index.html` for client-side routes. Docker/nginx are not used on Vercel.
+
+**Migrations don't run on deploy.** Before deploying a change that adds a migration, run
+`npm run db:migrate:neon` from your machine (uses the direct URL in `apps/api/.env.neon`).
+
+### API project
+1. vercel.com → Add New → Project → import `ajayajdeveloper/la-tienda-hombre` from GitHub.
+2. **Project name:** `la-tienda-hombre-api` · **Root Directory:** `apps/api` · Framework: Express (auto-detected).
+3. **Environment variables:**
+   `DATABASE_URL` = the `NEON_POOLED_URL` value from `apps/api/.env.neon` ·
+   `NODE_ENV` = `production` · `DB_POOL_MAX` = `5` · `TRUST_PROXY` = `1`
+4. Deploy. Then **Settings → Git → Production Branch → `v2`** and redeploy (Vercel's first deploy uses `main`,
+   which is v1).
+5. Check `https://la-tienda-hombre-api.vercel.app/healthz` → `{"status":"ok","db":"ok"}`.
+
+### Web project
+1. Import the same repo again. **Project name:** `la-tienda-hombre` · **Root Directory:** `apps/web` ·
+   Framework: Vite (auto). No environment variables needed (the rewrite makes `/api` same-origin).
+2. **Production Branch → `v2`**, redeploy.
+3. If the API project didn't get exactly `la-tienda-hombre-api.vercel.app` (name taken), update the
+   rewrite destination in `apps/web/vercel.json`.
+4. `BASE=https://la-tienda-hombre.vercel.app npm run smoke` (places 2 test orders; reseed Neon after with
+   `DATABASE_URL=<direct url> node apps/api/src/db/seed.js --force`).
+
+## 4. Option B: other managed platforms (not tested in this build)
 
 If you'd rather not run a server: a managed Postgres (Neon or Supabase, free tiers), the API as a Docker web
 service (Render, Railway or Fly.io, using `apps/api/Dockerfile`), and the web app as a Docker service (using
@@ -123,7 +162,7 @@ service (Render, Railway or Fly.io, using `apps/api/Dockerfile`), and the web ap
   `--build-arg VITE_API_URL=https://api.example.com` and set `WEB_ORIGIN=https://shop.example.com` on the API
   for CORS.
 
-## 4. Pre-launch checklist
+## 5. Pre-launch checklist
 
 - [ ] `POSTGRES_PASSWORD` is a long random secret, stored only in the server's `.env`
 - [ ] HTTPS works; port 8080 is closed to the internet

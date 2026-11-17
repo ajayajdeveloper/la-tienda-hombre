@@ -1,8 +1,7 @@
-import { createApp } from './app.js'
+import app from './app.js'
 import { config } from './config.js'
 import { pool } from './db/pool.js'
 
-const app = createApp()
 const server = app.listen(config.port, () => {
   console.log(`api listening on :${config.port} (${config.env})`)
 })

@@ -15,6 +15,15 @@ export const pool = new pg.Pool({
   idleTimeoutMillis: 30000,
 })
 
+// On Vercel, the API runs as a function that is suspended between bursts of
+// traffic. attachDatabasePool closes idle connections before a suspend, so
+// suspended instances don't sit on open connections to Neon. Vercel sets
+// VERCEL=1 in its environment; locally and in Docker this is skipped.
+if (process.env.VERCEL) {
+  const { attachDatabasePool } = await import('@vercel/functions')
+  attachDatabasePool(pool)
+}
+
 // An idle client can error (e.g. the DB restarts). Without this listener the
 // error is unhandled and crashes the process; with it, the pool just discards
 // that client and opens a new one on the next query.
