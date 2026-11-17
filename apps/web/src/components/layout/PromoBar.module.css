@@ -1,0 +1,48 @@
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  min-height: 36px;
+  padding: 0 var(--space-2);
+  background: var(--color-ink);
+  color: var(--color-bg);
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+}
+
+.message {
+  overflow: hidden;
+  max-width: min(640px, 80vw);
+  text-align: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  animation: slide var(--dur-slow) var(--ease);
+}
+
+.message:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.arrow {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  opacity: 0.7;
+}
+
+.arrow:hover {
+  opacity: 1;
+}
+
+@keyframes slide {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}

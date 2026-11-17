@@ -1,0 +1,130 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.labelRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.label {
+  font-weight: 600;
+  font-size: var(--text-sm);
+}
+
+.label span {
+  color: var(--color-ink-2);
+  font-weight: 400;
+}
+
+.guideButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: var(--text-sm);
+}
+
+.sizes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(58px, 1fr));
+  gap: var(--space-2);
+}
+
+.size {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  font-weight: 600;
+  transition: border-color var(--dur-fast), background var(--dur-fast);
+}
+
+.size:hover {
+  border-color: var(--color-ink);
+}
+
+.size[aria-checked='true'] {
+  border-color: var(--color-ink);
+  background: var(--color-ink);
+  color: var(--color-bg);
+}
+
+/* Sold out: a diagonal strike, still selectable for "Notify me". */
+.size[data-soldout='true'] {
+  color: var(--color-ink-3);
+  background: linear-gradient(to top right, transparent calc(50% - 0.5px), var(--color-line-strong) 50%, transparent calc(50% + 0.5px)), var(--color-surface-2);
+}
+
+.size[data-soldout='true'][aria-checked='true'] {
+  border-color: var(--color-ink);
+  color: var(--color-ink);
+}
+
+.low {
+  font-size: 0.625rem;
+  font-weight: 600;
+  color: var(--color-warning);
+}
+
+.size[aria-checked='true'] .low {
+  color: #f0c27a;
+}
+
+/* size guide */
+.unitToggle {
+  display: inline-flex;
+  margin-bottom: var(--space-4);
+  padding: 3px;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-2);
+}
+
+.unitToggle button {
+  padding: var(--space-1) var(--space-4);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  font-size: var(--text-sm);
+}
+
+.unitToggle button[aria-pressed='true'] {
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+  font-weight: 600;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.table th,
+.table td {
+  padding: var(--space-3);
+  border-bottom: 1px solid var(--color-line);
+  text-align: left;
+}
+
+.table thead th {
+  color: var(--color-ink-2);
+  font-weight: 600;
+}
+
+.tip {
+  margin-top: var(--space-4);
+  color: var(--color-ink-2);
+  font-size: var(--text-sm);
+}

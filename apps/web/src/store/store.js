@@ -1,27 +1,31 @@
 import { configureStore } from '@reduxjs/toolkit'
+import { setupListeners } from '@reduxjs/toolkit/query'
+import { api } from './apiSlice.js'
 import cartReducer from './cartSlice.js'
+import wishlistReducer from './wishlistSlice.js'
+import recentReducer from './recentSlice.js'
+import uiReducer from './uiSlice.js'
+import { listener, loadPersisted, syncAcrossTabs } from './persistence.js'
 
-const CART_STORAGE_KEY = 'la-tienda-hombre-cart'
+export function makeStore(preloadedState = loadPersisted()) {
+  const store = configureStore({
+    reducer: {
+      [api.reducerPath]: api.reducer,
+      cart: cartReducer,
+      wishlist: wishlistReducer,
+      recent: recentReducer,
+      ui: uiReducer,
+    },
+    preloadedState: Object.fromEntries(Object.entries(preloadedState).filter(([, v]) => v !== undefined)),
+    // prepend: the listener sees actions before other middleware.
+    // api.middleware handles caching, invalidation and polling for RTK Query.
+    middleware: (getDefault) => getDefault().prepend(listener.middleware).concat(api.middleware),
+  })
 
-function loadCartState() {
-  try {
-    const saved = localStorage.getItem(CART_STORAGE_KEY)
-    return saved ? JSON.parse(saved) : undefined
-  } catch {
-    return undefined
-  }
+  // Refetch stale queries when the tab regains focus or the network reconnects.
+  setupListeners(store.dispatch)
+  syncAcrossTabs(store)
+  return store
 }
 
-export const store = configureStore({
-  reducer: {
-    cart: cartReducer,
-  },
-  preloadedState: {
-    cart: loadCartState() ?? { items: [] },
-  },
-})
-
-store.subscribe(() => {
-  const { cart } = store.getState()
-  localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart))
-})
+export const store = makeStore()

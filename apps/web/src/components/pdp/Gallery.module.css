@@ -1,0 +1,148 @@
+.gallery {
+  position: relative;
+}
+
+.thumbs,
+.main {
+  display: none;
+}
+
+.swipe {
+  display: flex;
+  margin-inline: calc(var(--gutter) * -1);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.swipe::-webkit-scrollbar {
+  display: none;
+}
+
+.swipe img {
+  flex: 0 0 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  scroll-snap-align: start;
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: var(--space-3);
+}
+
+.dots span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-line-strong);
+  transition: width var(--dur) var(--ease);
+}
+
+.dots span[data-active='true'] {
+  width: 18px;
+  border-radius: var(--radius-pill);
+  background: var(--color-ink);
+}
+
+@media (min-width: 900px) {
+  .gallery {
+    display: grid;
+    grid-template-columns: 76px 1fr;
+    gap: var(--space-4);
+  }
+
+  .swipe,
+  .dots {
+    display: none;
+  }
+
+  .thumbs {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .main {
+    position: relative;
+    display: block;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    border-radius: var(--radius-lg);
+    background: var(--color-surface-2);
+    cursor: zoom-in;
+  }
+
+  .main img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+}
+
+.thumb {
+  display: block;
+  padding: 0;
+  overflow: hidden;
+  border: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  background: none;
+  opacity: 0.7;
+  transition: opacity var(--dur), border-color var(--dur);
+}
+
+.thumb img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+.thumb:hover,
+.thumb[aria-current='true'] {
+  opacity: 1;
+}
+
+.thumb[aria-current='true'] {
+  border-color: var(--color-ink);
+}
+
+.zoomHint {
+  position: absolute;
+  right: var(--space-4);
+  bottom: var(--space-4);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  background: rgb(255 255 255 / 0.9);
+  font-size: var(--text-xs);
+  opacity: 0;
+  transition: opacity var(--dur);
+}
+
+.main:hover .zoomHint {
+  opacity: 1;
+}
+
+.zoomGrid {
+  display: grid;
+  gap: var(--space-3);
+}
+
+@media (min-width: 700px) {
+  .zoomGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.zoomGrid img {
+  width: 100%;
+  border-radius: var(--radius);
+}

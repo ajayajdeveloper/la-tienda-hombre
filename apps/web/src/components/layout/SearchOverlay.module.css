@@ -1,0 +1,196 @@
+.root {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  visibility: hidden;
+}
+
+.root[data-open='true'] {
+  visibility: visible;
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  background: var(--color-overlay);
+  opacity: 0;
+  transition: opacity var(--dur) var(--ease);
+}
+
+.root[data-open='true'] .backdrop {
+  opacity: 1;
+}
+
+.panel {
+  position: relative;
+  max-height: 100dvh;
+  overflow-y: auto;
+  padding-block: var(--space-4) var(--space-8);
+  background: var(--color-bg);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-100%);
+  transition: transform var(--dur-slow) var(--ease);
+}
+
+.root[data-open='true'] .panel {
+  transform: none;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 0 var(--space-2) 0 var(--space-5);
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+}
+
+.form:focus-within {
+  border-color: var(--color-ink);
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  height: 54px;
+  border: 0;
+  background: transparent;
+  font-size: var(--text-lg);
+  outline: none;
+}
+
+.input:focus-visible {
+  outline: none; /* .form:focus-within draws the focus ring on the whole pill */
+}
+
+.input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--color-line-strong);
+  border-top-color: var(--color-ink);
+  border-radius: 50%;
+  animation: spin 700ms linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.close {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+}
+
+.close:hover {
+  background: var(--color-surface-2);
+}
+
+.results {
+  padding-top: var(--space-6);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chip {
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  font-size: var(--text-sm);
+}
+
+.chip:hover {
+  border-color: var(--color-ink);
+}
+
+.none {
+  color: var(--color-ink-2);
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-8);
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: 220px 1fr;
+  }
+}
+
+.categoryList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  list-style: none;
+  font-weight: 500;
+}
+
+.categoryList span {
+  color: var(--color-ink-3);
+  font-weight: 400;
+}
+
+.categoryList a:hover {
+  text-decoration: underline;
+}
+
+.productList {
+  display: grid;
+  gap: var(--space-3);
+  margin: var(--space-3) 0 var(--space-5);
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 768px) {
+  .productList {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.product {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2);
+  border-radius: var(--radius);
+}
+
+.product:hover {
+  background: var(--color-surface-2);
+}
+
+.product img {
+  width: 56px;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+}
+
+.productName {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
