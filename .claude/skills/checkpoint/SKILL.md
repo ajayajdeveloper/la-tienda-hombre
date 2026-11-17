@@ -13,8 +13,9 @@ happened today from `JOURNAL.md` alone.
 - Look back over this conversation: what was taught, what the user built, what was
   tested and how, bugs hit, decisions made, corrections the user gave.
 - `git status --short` and `git diff --stat`: which files changed.
-- Read every changed file under `apps/*/src/` before calling it "done". The user
-  has pasted code into the wrong place before.
+- Read every changed file under `apps/*/src/` before calling it "done".
+- Run `npm test` (and `npm run smoke` if UI changed) and record the result.
+- If a decision was made, check it has an entry in `docs/DECISIONS.md`.
 
 ## 2. Add a new entry to JOURNAL.md
 

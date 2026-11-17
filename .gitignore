@@ -5,3 +5,7 @@ build/
 .env.local
 *.log
 .DS_Store
+backups/
+smoke-shots/
+.env.*
+!.env.example
