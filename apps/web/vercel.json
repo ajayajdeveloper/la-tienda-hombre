@@ -1,7 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
-    { "source": "/api/:path*", "destination": "https://la-tienda-hombre-api.vercel.app/api/:path*" },
+    { "source": "/api/:path*", "destination": "https://la-tienda-hombre.vercel.app/api/:path*" },
     { "source": "/((?!assets/|images/).*)", "destination": "/index.html" }
   ],
   "headers": [

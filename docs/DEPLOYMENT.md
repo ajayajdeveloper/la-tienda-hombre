@@ -114,9 +114,9 @@ on a scratch database. A backup you've never restored is a hope, not a backup.
 non-commercial use only**; a store that really sells needs Vercel Pro.
 
 ```
-Browser ──► la-tienda-hombre.vercel.app (Vite build on Vercel's CDN)
+Browser ──► la-tienda-hombre-shop.vercel.app (Vite build on Vercel's CDN)
               └─ /api/*  rewrite (server-side proxy, still one origin) ──►
-                 la-tienda-hombre-api.vercel.app (Express as one Vercel Function, region sin1)
+                 la-tienda-hombre.vercel.app (Express as one Vercel Function, region sin1)
                     └─ pg Pool + attachDatabasePool ──► Neon (ap-southeast-1, pooled URL)
 ```
 
@@ -130,21 +130,18 @@ detection), `apps/api/vercel.json` pins the function to `sin1`, `db/pool.js` cal
 
 ### API project
 1. vercel.com → Add New → Project → import `ajayajdeveloper/la-tienda-hombre` from GitHub.
-2. **Project name:** `la-tienda-hombre-api` · **Root Directory:** `apps/api` · Framework: Express (auto-detected).
+2. **Project name:** `la-tienda-hombre` (it serves the API; the domain is `la-tienda-hombre.vercel.app`) · **Root Directory:** `apps/api` · Framework: Express (auto-detected).
 3. **Environment variables:**
    `DATABASE_URL` = the `NEON_POOLED_URL` value from `apps/api/.env.neon` ·
    `NODE_ENV` = `production` · `DB_POOL_MAX` = `5` · `TRUST_PROXY` = `1`
-4. Deploy. Then **Settings → Git → Production Branch → `v2`** and redeploy (Vercel's first deploy uses `main`,
-   which is v1).
-5. Check `https://la-tienda-hombre-api.vercel.app/healthz` → `{"status":"ok","db":"ok"}`.
+4. Deploy (`main` now contains v2).
+5. Check `https://la-tienda-hombre.vercel.app/healthz` → `{"status":"ok","db":"ok"}`.
 
 ### Web project
-1. Import the same repo again. **Project name:** `la-tienda-hombre` · **Root Directory:** `apps/web` ·
+1. Import the same repo again. **Project name:** `la-tienda-hombre-shop` · **Root Directory:** `apps/web` ·
    Framework: Vite (auto). No environment variables needed (the rewrite makes `/api` same-origin).
-2. **Production Branch → `v2`**, redeploy.
-3. If the API project didn't get exactly `la-tienda-hombre-api.vercel.app` (name taken), update the
-   rewrite destination in `apps/web/vercel.json`.
-4. `BASE=https://la-tienda-hombre.vercel.app npm run smoke` (places 2 test orders; reseed Neon after with
+3. The rewrite destination in `apps/web/vercel.json` must be the API project's domain.
+4. `BASE=https://la-tienda-hombre-shop.vercel.app npm run smoke` (places 2 test orders; reseed Neon after with
    `DATABASE_URL=<direct url> node apps/api/src/db/seed.js --force`).
 
 ## 4. Option B: other managed platforms (not tested in this build)
