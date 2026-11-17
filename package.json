@@ -2,7 +2,7 @@
   "name": "la-tienda-hombre",
   "private": true,
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "workspaces": [
     "apps/*"
@@ -10,9 +10,21 @@
   "scripts": {
     "dev": "concurrently -n api,web -c blue,green \"npm run dev -w apps/api\" \"npm run dev -w apps/web\"",
     "db:up": "docker compose up -d postgres",
-    "db:down": "docker compose down"
+    "db:down": "docker compose down",
+    "test": "npm test -w apps/api && npm test -w apps/web",
+    "build": "npm run build -w apps/web",
+    "db:migrate": "npm run db:migrate -w apps/api",
+    "db:seed": "npm run db:seed -w apps/api",
+    "prod:up": "docker compose -f docker-compose.prod.yml up -d --build",
+    "prod:down": "docker compose -f docker-compose.prod.yml down",
+    "loadtest": "node scripts/loadtest.js",
+    "smoke": "node scripts/smoke.mjs",
+    "dev:neon": "DATABASE_URL=$(node -p \"require('dotenv').parse(require('fs').readFileSync('apps/api/.env.neon')).NEON_POOLED_URL\") DB_POOL_MAX=5 npm run dev",
+    "db:migrate:neon": "DATABASE_URL=$(node -p \"require('dotenv').parse(require('fs').readFileSync('apps/api/.env.neon')).NEON_DIRECT_URL\") npm run db:migrate -w apps/api"
   },
   "devDependencies": {
-    "concurrently": "^9.0.0"
+    "autocannon": "^8.0.0",
+    "concurrently": "^9.0.0",
+    "puppeteer-core": "^23.11.1"
   }
 }

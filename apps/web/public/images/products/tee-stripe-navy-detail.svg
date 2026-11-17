@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" role="img">
+<defs>
+<linearGradient id="gteestripedetail" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#2c3a55"/><stop offset="1" stop-color="#1b2841"/>
+</linearGradient>
+<linearGradient id="steestripedetail" x1="0" y1="0" x2="1" y2="0">
+<stop offset="0" stop-color="#000" stop-opacity="0.10"/><stop offset="0.35" stop-color="#000" stop-opacity="0"/>
+<stop offset="0.7" stop-color="#fff" stop-opacity="0.06"/><stop offset="1" stop-color="#000" stop-opacity="0.12"/>
+</linearGradient>
+<pattern id="pteestripedetail" width="16" height="16" patternUnits="userSpaceOnUse">
+<rect width="16" height="16" fill="#1F2D4A"/>
+<rect width="16" height="5" fill="#848c9b" opacity="0.75"/></pattern></defs>
+<rect width="400" height="500" fill="#ced1d7"/>
+<circle cx="330" cy="80" r="120" fill="#fff" opacity="0.18"/>
+<g transform="translate(-170 -40) scale(1.85)">
+<path d="M150 78 Q200 102 250 78 L320 104 L358 190 L310 208 L294 172 L296 444 Q200 452 104 444 L106 172 L90 208 L42 190 L80 104 Z" fill="url(#pteestripedetail)" stroke="#162035" stroke-width="2" stroke-linejoin="round"/>
+<path d="M150 78 Q200 102 250 78 L320 104 L358 190 L310 208 L294 172 L296 444 Q200 452 104 444 L106 172 L90 208 L42 190 L80 104 Z" fill="url(#steestripedetail)"/>
+<path d="M150 78 Q200 116 250 78 M48 176 L96 196 M352 176 L304 196" fill="none" stroke="#505b72" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/>
+</g>
+</svg>
