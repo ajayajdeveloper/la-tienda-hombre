@@ -1,3 +1,5 @@
+> **v1 roadmap (done, on `main`).** v2 is planned in [docs/ROADMAP-v2.md](docs/ROADMAP-v2.md).
+
 # La Tienda Hombre — Build Roadmap
 
 **Goal:** build a clothing store storefront (product catalog, cart, checkout) in plain JS —
